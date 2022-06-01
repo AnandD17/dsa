@@ -55,13 +55,13 @@ menu dummyData(){
 menu data1 = (menu)malloc(sizeof(struct menus));
 menu data2 = (menu)malloc(sizeof(struct menus));
 menu data3 = (menu)malloc(sizeof(struct menus));
-strcpy(data3->name , "Chicken_biryani");
+strcpy(data3->name , "Noodles");
 data3->amount = 100;
 data3->next = NULL;
-strcpy(data2->name , "CB");
+strcpy(data2->name , "Tea");
 data2->amount = 10;
 data2->next = data3;
-strcpy(data1->name , "Chicken_biryani");
+strcpy(data1->name , "Full_Meals");
 data1->amount = 1000;
 data1->next = data2;
 return data1;
@@ -85,27 +85,33 @@ int hash(int phone,int pass){
     int key,i = 0;
     key = phone % size;
     i = key;
-    printf("%d",chain[i]);
+    printf("\n%d",chain[i]);
     while (1)
     {
         if (chain[i]==pass)
         {
-            printf("logged In");
+            printf("\033[0;32m");   
+            printf(" \nlogged in successfully.\n");
+            printf("\033[0m");  
             return 1;
         }
         else{
             if(chain[i]%size==key)
-            {   
+            {
                 if(i==size-1) i = 0;
                 else i++;
 
                 if(i==key){
-                    printf("no user exists");
+                    printf("\033[0;31m"); 
+                    printf("No user exists.");
+                    printf("\033[0m");     
                     return 0;
                 }
             }
             else {
-                printf("wrong password");
+                printf("\033[0;31m"); 
+                printf("Wrong Password.");
+                printf("\033[0m");     
                 return 0;
             }
         }
@@ -119,7 +125,7 @@ int hash(int phone,int pass){
 // int chkLogin(){
 //     int uname = loginName;
 //     char pass[50];
-//     strcpy(loginPassword,pass); 
+//     strcpy(loginPassword,pass);
 //     int number,val;
 //     val = hash(uname);
 //     printf("Please check your username");
@@ -131,7 +137,7 @@ int hash(int phone,int pass){
 
 tree setList(tree root1,tree item){
     if(root1==NULL){
-        return item; 
+        return item;
     }
     if(item->amount < root1->amount){
         root1->left = setList(root1->left,item);
@@ -146,7 +152,7 @@ void inOrder(tree root1){
     if(root1!=NULL){
         inOrder(root1->left);
         printf("this is data");
-        // printf("\n  %s  --> %d",root1->name,root1->amount);
+        printf("\n  %s  --> %d",root1->name,root1->amount);
         inOrder(root1->right);
     }
 }
@@ -160,11 +166,13 @@ void calculate(menu item)
 {
 
     tree ptr = (tree)malloc(sizeof(struct trees));
+    ptr->left = NULL;
+    ptr->right = NULL;
     strcpy(ptr->name, item->name);
     ptr->amount = item->amount;
     root = setList(root,ptr);
     int day, month, year;
-
+    printf("\n  %s  --> %d",root->name,root->amount);
     time_t now = time(NULL);
     total+=item->amount;
 
@@ -187,7 +195,7 @@ void setLog(){
     fp = fopen("Logs.txt","a");
     if(fp==NULL) printf("could not able to open the file");
     fprintf(fp,"%s","\n\n");
-    fprintf(fp,"%s","_________________________START OF ITERATION________________________");
+    fprintf(fp,"%s","________START OF SESSION_________");
     fprintf(fp,"%s %s",ctime(&now),"  ");
     fclose(fp);
 }
@@ -220,7 +228,7 @@ menu showMenu(){
         i++;
         ptr = ptr->next;
     }
-    printf("\nEnter the name of dish as appear in the menu  :");
+    printf("\n\nEnter the name of dish as appear in the menu  :");
     scanf("%s",choice);
 
 
@@ -232,8 +240,8 @@ menu showMenu(){
         }
         ptr = ptr->next;
     }
-    if(flag) printf("\nPlease Enter a valid Dish Name");
-    
+    if(!flag) printf("\nPlease Enter a valid Dish Name !!");
+
 
 
     }
@@ -252,7 +260,7 @@ void goToMenu(){
 
     while(1){
         menu item;
-        printf("\n\n\n1.Watch Menu\n2.Total of the session\n3.Print Items you have ordered\nAny other key to.Exit              :");
+        printf("\n\n\n1.Watch Menu\n2.Total of the session\n3.Print Items you have ordered\n4.Exit              :");
         scanf("%d",&choice);
         switch (choice)
         {
@@ -260,19 +268,20 @@ void goToMenu(){
             item = showMenu();
             calculate(item);
             break;
-        
+
         case 2:
             printTotal();
             break;
-        
+
         case 3:
             inOrder(root);
             break;
-        
-        default:
+
+        case 4:
             exit(0);
+        default: printf("\nInvalid Input.\n");
         }
-        
+
     }
 
 }
@@ -280,7 +289,6 @@ void goToMenu(){
 //signup function
 void signup(){
     user temp = (user)malloc(sizeof(struct users));
-    printf("\n\nWelocome to the restuarant:");
     printf("\n\nSignUp here :");
     printf("\n\nPlease Enter your Name      :");
     scanf("%s",temp->name);
@@ -302,7 +310,9 @@ void signup(){
         if (chain[i] == -1)
         {
            chain[i] = temp->password;
-            printf("Signup successfull");
+            printf("\033[0;32m");  
+            printf("\nSignup successfull");
+            printf("\033[0m");    
            break;
         }
 
@@ -312,12 +322,14 @@ void signup(){
             else i++;
 
             if(i==key){
+                printf("\033[0;31m");  
                 printf("no space avilable");
+                printf("\033[0m");   
             }
 
         }
     }
-        
+
 
     // validate();
 }
@@ -329,7 +341,7 @@ void login(){
     int loginName;
 
     while(1){
-    printf("\nWelocome to the Login:");
+    printf("\nWelcome to the Login:");
     printf("\n");
     printf("\n");
     printf("\n  Enter Mobile Number  :");
@@ -342,7 +354,11 @@ void login(){
         goToMenu();
         break;
     }
-    else printf("try again");
+    else {
+        printf("\033[0;31m"); 
+        printf("try again");
+        printf("\033[0m"); 
+    }
     }
 }
 
@@ -352,21 +368,22 @@ int setup(){
     init();
 
     while(1){
-        printf("\n\n\n1.SigUp\n2.Login\nAny other key to.Exit              :");
+        printf("\n\n\n1.SigUp\n2.Login\n3.Exit              :");
         scanf("%d",&choice);
         switch (choice)
         {
         case 1:
             signup();
             break;
-        
+
         case 2:
             login();
             break;
-        
-        default:
+
+        case 3:
             exit(0);
+        default: printf("\nInvalid Input.\n");
         }
-        
+
     }
 }
