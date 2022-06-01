@@ -1,0 +1,3 @@
+printf("\033[0;31m");            //red color
+printf("\033[0m");               //white color
+printf("\033[0;32m");            //green color
