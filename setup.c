@@ -24,15 +24,25 @@ typedef struct menus{
     struct menus *next;
 } *menu;
 
+typedef struct trees{
+    char name[50];
+    int  amount;
+    struct menus *left;
+    struct menus *right;
+} *tree;
+
+tree root = NULL;      //initialising root for tree which stores the items ordered
+// Function:     Initialser
+// Description:  Initialize the chain of users by /-1
+// Input param:  NULL
+// Return Type:  NULL
 void init(){
     for(int i = 0 ; i < size ; i++){
         chain[i] = -1;
     }
+
 }
-// Function:     Initialser
-// Description:  Initialize the chain of users
-// Input param:  NULL
-// Return Type:  NULL
+
 
 
 // Function:     validateUser
@@ -95,7 +105,7 @@ int hash(int phone,int pass){
                 }
             }
             else {
-                printf("something went wrong wth your password");
+                printf("wrong password");
                 return 0;
             }
         }
@@ -119,6 +129,29 @@ int hash(int phone,int pass){
 
 
 
+tree setList(tree root,tree item){
+    
+    if(root==NULL){
+        return item; 
+    }
+    if(item->amount < root->amount){
+        root->left = setList(root->left,item);
+    }
+    else{
+         root->right = setList(root->right,item);
+    }
+    return root;
+}
+
+void inOrder(tree root){
+    if(root!=NULL){
+        inOrder(root->left);
+        printf("  %s  --> %d",root->name,root->amount);
+        inOrder(root->right);
+    }
+}
+
+
 // Function:     calculate
 // Description:  Claculate the orders and stores it in a txt file
 // Input param:  item selected
@@ -126,6 +159,10 @@ int hash(int phone,int pass){
 void calculate(menu item)
 {
 
+    tree ptr = (tree)malloc(sizeof(struct trees));
+    strcpy(ptr->name, item->name);
+    ptr->amount = item->amount;
+    setList(root,ptr);
     int day, month, year;
 
     time_t now = time(NULL);
@@ -215,7 +252,7 @@ void goToMenu(){
 
     while(1){
         menu item;
-        printf("\n\n\n1.Watch Menu\n2.Total of the session\nAny other key to.Exit              :");
+        printf("\n\n\n1.Watch Menu\n2.Total of the session\n3.Print Items you have ordered\nAny other key to.Exit              :");
         scanf("%d",&choice);
         switch (choice)
         {
@@ -226,6 +263,10 @@ void goToMenu(){
         
         case 2:
             printTotal();
+            break;
+        
+        case 3:
+            inOrder(root);
             break;
         
         default:
