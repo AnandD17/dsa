@@ -210,3 +210,33 @@ ________START OF SESSION_________Wed Jun 01 11:26:59 2022
 
 ________START OF SESSION_________Wed Jun 01 11:35:07 2022
    
+
+________START OF SESSION_________Wed Jun 01 11:41:42 2022
+   
+
+________START OF SESSION_________Wed Jun 01 11:43:34 2022
+   
+
+________START OF SESSION_________Wed Jun 01 11:48:02 2022
+   
+
+________START OF SESSION_________Wed Jun 01 11:49:10 2022
+   
+
+ Wed Jun 01 11:49:33 2022
+ Roti -----> Rs. 35
+
+ Wed Jun 01 11:49:46 2022
+ Tea -----> Rs. 10
+
+________START OF SESSION_________Wed Jun 01 11:51:17 2022
+   
+
+ Wed Jun 01 11:51:21 2022
+ Roti -----> Rs. 35
+
+________START OF SESSION_________Wed Jun 01 11:53:03 2022
+   
+
+________START OF SESSION_________Wed Jun 01 11:54:06 2022
+   

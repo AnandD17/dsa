@@ -5,6 +5,7 @@
 
 //Main Function
 int main(){
+    
 load();    //initial load
 setup();  //login or signup
 

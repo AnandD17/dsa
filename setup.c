@@ -55,12 +55,49 @@ menu dummyData(){
 menu data1 = (menu)malloc(sizeof(struct menus));
 menu data2 = (menu)malloc(sizeof(struct menus));
 menu data3 = (menu)malloc(sizeof(struct menus));
+menu data4 = (menu)malloc(sizeof(struct menus));
+menu data5 = (menu)malloc(sizeof(struct menus));
+menu data6 = (menu)malloc(sizeof(struct menus));
+menu data7 = (menu)malloc(sizeof(struct menus));
+menu data8 = (menu)malloc(sizeof(struct menus));
+menu data9 = (menu)malloc(sizeof(struct menus));
+menu data10 = (menu)malloc(sizeof(struct menus));
+strcpy(data10->name , "Noodles");
+data10->amount = 100;
+data10->next = NULL;
+
+strcpy(data9->name , "Fried_Rice");
+data9->amount = 170;
+data9->next = data10;
+
+strcpy(data8->name , "Roti");
+data8->amount =35;
+data8->next = data9;
+
+strcpy(data7->name , "Butter_paneer");
+data7->amount = 180;
+data7->next = data8;
+
+strcpy(data6->name , "Chole_Bhatoore");
+data6->amount = 100;
+data6->next = data7;
+
+strcpy(data5->name , "North_Indian_Thali");
+data5->amount = 140;
+data5->next = data6;
+
+strcpy(data4->name , "Black_Current");
+data4->amount = 100;
+data4->next = data5;
+
 strcpy(data3->name , "Noodles");
-data3->amount = 100;
-data3->next = NULL;
+data3->amount = 110;
+data3->next = data4;
+
 strcpy(data2->name , "Tea");
 data2->amount = 10;
 data2->next = data3;
+
 strcpy(data1->name , "Full_Meals");
 data1->amount = 1000;
 data1->next = data2;
@@ -151,7 +188,6 @@ tree setList(tree root1,tree item){
 void inOrder(tree root1){
     if(root1!=NULL){
         inOrder(root1->left);
-        printf("this is data");
         printf("\n  %s  --> %d",root1->name,root1->amount);
         inOrder(root1->right);
     }
@@ -204,10 +240,10 @@ void setLog(){
 
 void printTotal(){
     if(total==0){
-        printf("you haven't ordered anything yet");
+        printf("\n\nYou haven't ordered anything yet");
     }
     else{
-        printf("You total amount is   :%d",total);
+        printf("\n\nYour total amount is   :%d",total);
     }
 }
 
@@ -260,7 +296,7 @@ void goToMenu(){
 
     while(1){
         menu item;
-        printf("\n\n\n1.Watch Menu\n2.Total of the session\n3.Print Items you have ordered\n4.Exit              :");
+        printf("\n\n\n1.Watch Menu\n2.Total of the session\n3.Print Items you have ordered\n4.Logout             :");
         scanf("%d",&choice);
         switch (choice)
         {
@@ -275,9 +311,13 @@ void goToMenu(){
 
         case 3:
             inOrder(root);
+            printTotal();
             break;
 
         case 4:
+            printf("\033[0;32m");
+            printf("\n\nThank you Visit Again\n\n");
+            printf("\033[0m");  
             exit(0);
         default: printf("\nInvalid Input.\n");
         }
