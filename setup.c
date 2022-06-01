@@ -27,8 +27,8 @@ typedef struct menus{
 typedef struct trees{
     char name[50];
     int  amount;
-    struct menus *left;
-    struct menus *right;
+    struct trees *left;
+    struct trees *right;
 } *tree;
 
 tree root = NULL;      //initialising root for tree which stores the items ordered
@@ -129,25 +129,25 @@ int hash(int phone,int pass){
 
 
 
-tree setList(tree root,tree item){
-    
-    if(root==NULL){
+tree setList(tree root1,tree item){
+    if(root1==NULL){
         return item; 
     }
-    if(item->amount < root->amount){
-        root->left = setList(root->left,item);
+    if(item->amount < root1->amount){
+        root1->left = setList(root1->left,item);
     }
     else{
-         root->right = setList(root->right,item);
+         root1->right = setList(root1->right,item);
     }
-    return root;
+    return root1;
 }
 
-void inOrder(tree root){
-    if(root!=NULL){
-        inOrder(root->left);
-        printf("  %s  --> %d",root->name,root->amount);
-        inOrder(root->right);
+void inOrder(tree root1){
+    if(root1!=NULL){
+        inOrder(root1->left);
+        printf("this is data");
+        // printf("\n  %s  --> %d",root1->name,root1->amount);
+        inOrder(root1->right);
     }
 }
 
@@ -162,7 +162,7 @@ void calculate(menu item)
     tree ptr = (tree)malloc(sizeof(struct trees));
     strcpy(ptr->name, item->name);
     ptr->amount = item->amount;
-    setList(root,ptr);
+    root = setList(root,ptr);
     int day, month, year;
 
     time_t now = time(NULL);
